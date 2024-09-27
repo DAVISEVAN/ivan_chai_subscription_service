@@ -1,0 +1,2 @@
+  [1m[35m (178.5ms)[0m  [1m[35mCREATE DATABASE "ivan_chai_subscription_service_development" ENCODING = 'unicode'[0m
+  [1m[35m (53.4ms)[0m  [1m[35mCREATE DATABASE "ivan_chai_subscription_service_test" ENCODING = 'unicode'[0m
