@@ -4,5 +4,6 @@ class Subscription < ApplicationRecord
 
   enum status: { active: 0, cancelled: 1 }
 
-  validates :title, :price, :frequency, :status, presence: true
+  validates :title, :price, :frequency, presence: true
+  validates :status, inclusion: { in: statuses.keys, message: 'is not included in the list' }
 end
