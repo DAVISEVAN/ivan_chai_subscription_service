@@ -5,6 +5,44 @@ RSpec.describe 'Subscriptions API', type: :request do
   let!(:tea) { create(:tea) }
   let!(:subscription) { create(:subscription, customer: customer, tea: tea) }
 
+  describe 'DELETE /api/v1/customers/:customer_id/subscriptions/:id' do
+    context 'when the subscription exists' do
+      it 'deletes the subscription' do
+        expect {
+          delete "/api/v1/customers/#{customer.id}/subscriptions/#{subscription.id}"
+        }.to change(Subscription, :count).by(-1)
+
+        expect(response).to have_http_status(:ok)
+        message = JSON.parse(response.body)['message']
+        expect(message).to eq('Subscription deleted successfully')
+      end
+    end
+
+    context 'when the subscription does not exist' do
+      it 'returns a 404 not found error' do
+        expect {
+          delete "/api/v1/customers/#{customer.id}/subscriptions/9999"
+        }.to_not change(Subscription, :count)
+
+        expect(response).to have_http_status(:not_found)
+        error_message = JSON.parse(response.body)['error']
+        expect(error_message).to eq('Subscription not found')
+      end
+    end
+
+    context 'when the customer does not exist' do
+      it 'returns a 404 not found error' do
+        expect {
+          delete "/api/v1/customers/9999/subscriptions/#{subscription.id}"
+        }.to_not change(Subscription, :count)
+
+        expect(response).to have_http_status(:not_found)
+        error_message = JSON.parse(response.body)['error']
+        expect(error_message).to eq('Customer not found')
+      end
+    end
+  end
+
   describe 'GET /api/v1/customers/:customer_id/subscriptions/:id' do
     context 'when the subscription exists' do
       it 'returns the subscription details' do

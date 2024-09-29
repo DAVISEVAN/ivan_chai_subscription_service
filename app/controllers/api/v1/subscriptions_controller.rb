@@ -1,6 +1,6 @@
 class Api::V1::SubscriptionsController < ApplicationController
-  before_action :set_customer, only: [:create, :index, :update, :show]
-  before_action :set_subscription, only: [:update, :show]
+  before_action :set_customer, only: [:create, :index, :update, :show, :destroy]
+  before_action :set_subscription, only: [:update, :show, :destroy]
 
   def create
     tea = Tea.find_by(id: params[:tea_id])
@@ -39,6 +39,14 @@ class Api::V1::SubscriptionsController < ApplicationController
       end
     rescue ArgumentError => e
       render json: { errors: [e.message] }, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @subscription.destroy
+      render json: { message: 'Subscription deleted successfully' }, status: :ok
+    else
+      render json: { errors: @subscription.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
