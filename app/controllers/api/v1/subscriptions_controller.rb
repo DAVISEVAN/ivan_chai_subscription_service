@@ -1,6 +1,6 @@
 class Api::V1::SubscriptionsController < ApplicationController
-  before_action :set_customer, only: [:create, :index, :update]
-  before_action :set_subscription, only: [:update]
+  before_action :set_customer, only: [:create, :index, :update, :show]
+  before_action :set_subscription, only: [:update, :show]
 
   def create
     tea = Tea.find_by(id: params[:tea_id])
@@ -18,6 +18,12 @@ class Api::V1::SubscriptionsController < ApplicationController
     end
   end
 
+  def show
+    subscription = @customer.subscriptions.find(params[:id])
+    render json: subscription
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Subscription not found' }, status: :not_found
+  end
 
   def index
     subscriptions = @customer.subscriptions

@@ -5,6 +5,31 @@ RSpec.describe 'Subscriptions API', type: :request do
   let!(:tea) { create(:tea) }
   let!(:subscription) { create(:subscription, customer: customer, tea: tea) }
 
+  describe 'GET /api/v1/customers/:customer_id/subscriptions/:id' do
+    context 'when the subscription exists' do
+      it 'returns the subscription details' do
+        get "/api/v1/customers/#{customer.id}/subscriptions/#{subscription.id}"
+        expect(response).to have_http_status(:ok)
+
+        subscription_data = JSON.parse(response.body)
+        expect(subscription_data['id']).to eq(subscription.id)
+        expect(subscription_data['title']).to eq(subscription.title)
+        expect(subscription_data['price'].to_f).to eq(subscription.price)
+        expect(subscription_data['status']).to eq(subscription.status)
+      end
+    end
+
+    context 'when the subscription does not exist' do
+      it 'returns a 404 not found error' do
+        get "/api/v1/customers/#{customer.id}/subscriptions/9999"
+        expect(response).to have_http_status(:not_found)
+
+        error_message = JSON.parse(response.body)
+        expect(error_message['error']).to eq('Subscription not found')
+      end
+    end
+  end
+
   describe 'POST /api/v1/customers/:customer_id/subscriptions' do
     context 'with valid attributes' do
       it 'creates a new subscription' do
