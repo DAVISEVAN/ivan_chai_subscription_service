@@ -1,9 +1,41 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Creating some sample Teas
+tea1 = Tea.create!(
+  title: 'Green Tea',
+  description: 'A refreshing and healthy green tea.',
+  temperature: 80,
+  brew_time: 3
+)
+
+tea2 = Tea.create!(
+  title: 'Black Tea',
+  description: 'A bold and strong black tea.',
+  temperature: 95,
+  brew_time: 5
+)
+
+# Creating a sample Customer
+customer = Customer.create!(
+  first_name: 'John',
+  last_name: 'Doe',
+  email: 'john.doe@example.com',
+  address: '123 Tea Street, Flavor Town'
+)
+
+# Creating sample Subscriptions
+Subscription.create!(
+  title: 'Monthly Green Tea Subscription',
+  price: 15.0,
+  status: 'active',
+  frequency: 'monthly',
+  customer: customer,
+  tea: tea1
+)
+
+Subscription.create!(
+  title: 'Weekly Black Tea Subscription',
+  price: 7.5,
+  status: 'cancelled',
+  frequency: 'weekly',
+  customer: customer,
+  tea: tea2
+)

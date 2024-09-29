@@ -2621,3 +2621,187 @@ Processing by Api::V1::SubscriptionsController#update as HTML
   [1m[36mSubscription Load (0.1ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1 AND "subscriptions"."id" = $2 LIMIT $3[0m  [["customer_id", 122], ["id", 141], ["LIMIT", 1]]
 Completed 422 Unprocessable Content in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 827)
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.8ms)[0m  [1m[34mSELECT * FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 ORDER BY "ar_internal_metadata"."key" ASC LIMIT 1[0m  [[nil, "schema_sha1"]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.7ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "susanna.mckenzie@wilkinson.example"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.3ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Brandon"], ["last_name", "Aufderhar"], ["email", "susanna.mckenzie@wilkinson.example"], ["address", "83497 Bradtke Rapid, East Cliffside, CT 93921-1513"], ["created_at", "2024-09-28 10:56:09.539163"], ["updated_at", "2024-09-28 10:56:09.539163"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.6ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Gongmei"], ["description", "Voluptatem sed beatae cumque."], ["temperature", 93], ["brew_time", 8], ["created_at", "2024-09-28 10:56:09.543588"], ["updated_at", "2024-09-28 10:56:09.543588"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (1.6ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "5.75"], ["status", 0], ["frequency", "yearly"], ["customer_id", 123], ["tea_id", 123], ["created_at", "2024-09-28 10:56:09.545193"], ["updated_at", "2024-09-28 10:56:09.545193"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/customers/123/subscriptions" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#create as HTML
+  Parameters: {"tea_id"=>"123", "subscription"=>{"title"=>"Monthly Tea", "price"=>"10.0", "frequency"=>"monthly"}, "customer_id"=>"123"}
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 123], ["LIMIT", 1]]
+  [1m[36mTea Load (0.2ms)[0m  [1m[34mSELECT "teas".* FROM "teas" WHERE "teas"."id" = $1 LIMIT $2[0m  [["id", 123], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.5ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Tea"], ["price", "10.0"], ["status", 0], ["frequency", "monthly"], ["customer_id", 123], ["tea_id", 123], ["created_at", "2024-09-28 10:56:09.566015"], ["updated_at", "2024-09-28 10:56:09.566015"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 201 Created in 12ms (Views: 0.2ms | ActiveRecord: 1.1ms | Allocations: 9433)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "raymond_feil@klein-streich.test"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Arthur"], ["last_name", "Weimann"], ["email", "raymond_feil@klein-streich.test"], ["address", "258 Ammie Roads, Port Buffy, LA 40241-2896"], ["created_at", "2024-09-28 10:56:09.571081"], ["updated_at", "2024-09-28 10:56:09.571081"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.2ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Tieguanyin"], ["description", "Dolorum explicabo rerum laborum."], ["temperature", 76], ["brew_time", 6], ["created_at", "2024-09-28 10:56:09.571881"], ["updated_at", "2024-09-28 10:56:09.571881"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "5.29"], ["status", 0], ["frequency", "yearly"], ["customer_id", 124], ["tea_id", 124], ["created_at", "2024-09-28 10:56:09.572621"], ["updated_at", "2024-09-28 10:56:09.572621"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/customers/-1/subscriptions" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#create as HTML
+  Parameters: {"tea_id"=>"124", "subscription"=>{"title"=>"Monthly Tea", "price"=>"10.0", "frequency"=>"monthly"}, "customer_id"=>"-1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", -1], ["LIMIT", 1]]
+Filter chain halted as :set_customer rendered or redirected
+Completed 404 Not Found in 0ms (Views: 0.0ms | ActiveRecord: 0.1ms | Allocations: 231)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "humberto@cole-morar.test"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Caleb"], ["last_name", "Kuhn"], ["email", "humberto@cole-morar.test"], ["address", "822 Heidy Tunnel, Leatriceville, KS 44388"], ["created_at", "2024-09-28 10:56:09.576180"], ["updated_at", "2024-09-28 10:56:09.576180"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.3ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Irish Breakfast"], ["description", "Dolores excepturi quidem ea."], ["temperature", 82], ["brew_time", 4], ["created_at", "2024-09-28 10:56:09.577271"], ["updated_at", "2024-09-28 10:56:09.577271"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.6ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "18.88"], ["status", 0], ["frequency", "yearly"], ["customer_id", 125], ["tea_id", 125], ["created_at", "2024-09-28 10:56:09.578331"], ["updated_at", "2024-09-28 10:56:09.578331"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/customers/125/subscriptions" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#create as HTML
+  Parameters: {"tea_id"=>"-1", "subscription"=>{"title"=>"Monthly Tea", "price"=>"10.0", "frequency"=>"monthly"}, "customer_id"=>"125"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 125], ["LIMIT", 1]]
+  [1m[36mTea Load (0.1ms)[0m  [1m[34mSELECT "teas".* FROM "teas" WHERE "teas"."id" = $1 LIMIT $2[0m  [["id", -1], ["LIMIT", 1]]
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 341)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "wiley@mann.example"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Roger"], ["last_name", "Gulgowski"], ["email", "wiley@mann.example"], ["address", "Apt. 356 2717 Trevor Crescent, Port Minhshire, IL 65610-5974"], ["created_at", "2024-09-28 10:56:09.583062"], ["updated_at", "2024-09-28 10:56:09.583062"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.2ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Kabusecha"], ["description", "Consectetur iure unde eos."], ["temperature", 96], ["brew_time", 7], ["created_at", "2024-09-28 10:56:09.583906"], ["updated_at", "2024-09-28 10:56:09.583906"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "13.19"], ["status", 0], ["frequency", "monthly"], ["customer_id", 126], ["tea_id", 126], ["created_at", "2024-09-28 10:56:09.584712"], ["updated_at", "2024-09-28 10:56:09.584712"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started POST "/api/v1/customers/126/subscriptions" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#create as HTML
+  Parameters: {"tea_id"=>"126", "subscription"=>{"title"=>"", "price"=>nil, "frequency"=>"monthly"}, "customer_id"=>"126"}
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 126], ["LIMIT", 1]]
+  [1m[36mTea Load (0.2ms)[0m  [1m[34mSELECT "teas".* FROM "teas" WHERE "teas"."id" = $1 LIMIT $2[0m  [["id", 126], ["LIMIT", 1]]
+Completed 422 Unprocessable Content in 2ms (Views: 0.1ms | ActiveRecord: 0.3ms | Allocations: 1482)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "stanton@stracke-rogahn.test"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.1ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Bryon"], ["last_name", "Lubowitz"], ["email", "stanton@stracke-rogahn.test"], ["address", "529 Nick Spur, New Elmo, WY 38057"], ["created_at", "2024-09-28 10:56:09.591005"], ["updated_at", "2024-09-28 10:56:09.591005"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.3ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Caraway"], ["description", "In quas doloremque nihil."], ["temperature", 97], ["brew_time", 7], ["created_at", "2024-09-28 10:56:09.591786"], ["updated_at", "2024-09-28 10:56:09.591786"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.7ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "19.05"], ["status", 0], ["frequency", "monthly"], ["customer_id", 127], ["tea_id", 127], ["created_at", "2024-09-28 10:56:09.592666"], ["updated_at", "2024-09-28 10:56:09.592666"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/customers/127/subscriptions" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#index as HTML
+  Parameters: {"customer_id"=>"127"}
+  [1m[36mCustomer Load (0.2ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 127], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.3ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1[0m  [["customer_id", 127]]
+Completed 200 OK in 2ms (Views: 1.1ms | ActiveRecord: 0.5ms | Allocations: 818)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "kandra.ebert@keeling.test"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Orval"], ["last_name", "Carroll"], ["email", "kandra.ebert@keeling.test"], ["address", "16139 Thersa Alley, Sengershire, CT 05305"], ["created_at", "2024-09-28 10:56:09.599401"], ["updated_at", "2024-09-28 10:56:09.599401"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.2ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Genmaicha"], ["description", "Mollitia sed natus nemo."], ["temperature", 79], ["brew_time", 7], ["created_at", "2024-09-28 10:56:09.600399"], ["updated_at", "2024-09-28 10:56:09.600399"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "11.86"], ["status", 0], ["frequency", "yearly"], ["customer_id", 128], ["tea_id", 128], ["created_at", "2024-09-28 10:56:09.601294"], ["updated_at", "2024-09-28 10:56:09.601294"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started GET "/api/v1/customers/-1/subscriptions" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#index as HTML
+  Parameters: {"customer_id"=>"-1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", -1], ["LIMIT", 1]]
+Filter chain halted as :set_customer rendered or redirected
+Completed 404 Not Found in 0ms (Views: 0.0ms | ActiveRecord: 0.1ms | Allocations: 206)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "arlie@braun.example"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.1ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Mellie"], ["last_name", "Ferry"], ["email", "arlie@braun.example"], ["address", "541 Swift Stream, North Aleshia, NV 65909"], ["created_at", "2024-09-28 10:56:09.605105"], ["updated_at", "2024-09-28 10:56:09.605105"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.2ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Kangra"], ["description", "Non dolor voluptas qui."], ["temperature", 86], ["brew_time", 7], ["created_at", "2024-09-28 10:56:09.605880"], ["updated_at", "2024-09-28 10:56:09.605880"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "17.44"], ["status", 0], ["frequency", "monthly"], ["customer_id", 129], ["tea_id", 129], ["created_at", "2024-09-28 10:56:09.606664"], ["updated_at", "2024-09-28 10:56:09.606664"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started PATCH "/api/v1/customers/129/subscriptions/149" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#update as HTML
+  Parameters: {"subscription"=>{"status"=>"cancelled"}, "customer_id"=>"129", "id"=>"149"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 129], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.1ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1 AND "subscriptions"."id" = $2 LIMIT $3[0m  [["customer_id", 129], ["id", 149], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Update (0.4ms)[0m  [1m[33mUPDATE "subscriptions" SET "status" = $1, "updated_at" = $2 WHERE "subscriptions"."id" = $3[0m  [["status", 1], ["updated_at", "2024-09-28 10:56:09.609132"], ["id", 149]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Completed 200 OK in 2ms (Views: 0.0ms | ActiveRecord: 0.7ms | Allocations: 1255)
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."id" = $1 LIMIT $2[0m  [["id", 149], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "suellen.altenwerth@ruecker.test"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.2ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Alonso"], ["last_name", "Schroeder"], ["email", "suellen.altenwerth@ruecker.test"], ["address", "Apt. 752 437 Ortiz Forges, Lake Carlita, MO 69444"], ["created_at", "2024-09-28 10:56:09.614049"], ["updated_at", "2024-09-28 10:56:09.614049"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.2ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Shou Mei"], ["description", "Dicta laudantium distinctio eaque."], ["temperature", 77], ["brew_time", 3], ["created_at", "2024-09-28 10:56:09.614924"], ["updated_at", "2024-09-28 10:56:09.614924"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.2ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "8.78"], ["status", 0], ["frequency", "monthly"], ["customer_id", 130], ["tea_id", 130], ["created_at", "2024-09-28 10:56:09.615659"], ["updated_at", "2024-09-28 10:56:09.615659"]]
+  [1m[36mTRANSACTION (0.0ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started PATCH "/api/v1/customers/130/subscriptions/-1" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#update as HTML
+  Parameters: {"customer_id"=>"130", "id"=>"-1"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 130], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.1ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1 AND "subscriptions"."id" = $2 LIMIT $3[0m  [["customer_id", 130], ["id", -1], ["LIMIT", 1]]
+Filter chain halted as :set_subscription rendered or redirected
+Completed 404 Not Found in 1ms (Views: 0.1ms | ActiveRecord: 0.2ms | Allocations: 612)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mCustomer Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "janel@effertz.example"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.1ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "Devon"], ["last_name", "Konopelski"], ["email", "janel@effertz.example"], ["address", "766 Ward Trail, Merryside, SD 76208-9690"], ["created_at", "2024-09-28 10:56:09.619850"], ["updated_at", "2024-09-28 10:56:09.619850"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mTea Create (0.2ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Matcha"], ["description", "Aut consequatur vero a."], ["temperature", 99], ["brew_time", 10], ["created_at", "2024-09-28 10:56:09.620615"], ["updated_at", "2024-09-28 10:56:09.620615"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mSAVEPOINT active_record_1[0m
+  [1m[36mSubscription Create (0.4ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Subscription"], ["price", "6.58"], ["status", 0], ["frequency", "monthly"], ["customer_id", 131], ["tea_id", 131], ["created_at", "2024-09-28 10:56:09.621424"], ["updated_at", "2024-09-28 10:56:09.621424"]]
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mRELEASE SAVEPOINT active_record_1[0m
+Started PATCH "/api/v1/customers/131/subscriptions/151" for 127.0.0.1 at 2024-09-28 04:56:09 -0600
+Processing by Api::V1::SubscriptionsController#update as HTML
+  Parameters: {"subscription"=>{"status"=>"invalid_status"}, "customer_id"=>"131", "id"=>"151"}
+  [1m[36mCustomer Load (0.1ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 131], ["LIMIT", 1]]
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1 AND "subscriptions"."id" = $2 LIMIT $3[0m  [["customer_id", 131], ["id", 151], ["LIMIT", 1]]
+Completed 422 Unprocessable Content in 1ms (Views: 0.0ms | ActiveRecord: 0.3ms | Allocations: 827)
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[31mROLLBACK[0m

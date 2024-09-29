@@ -60,3 +60,113 @@ FOREIGN KEY ("tea_id")
   [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(874350573350613660)[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mActiveRecord::SchemaMigration Load (3.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTea Create (2.4ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Green Tea"], ["description", "A refreshing and healthy green tea."], ["temperature", 80], ["brew_time", 3], ["created_at", "2024-09-28 11:03:38.576301"], ["updated_at", "2024-09-28 11:03:38.576301"]]
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mTea Create (1.1ms)[0m  [1m[32mINSERT INTO "teas" ("title", "description", "temperature", "brew_time", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["title", "Black Tea"], ["description", "A bold and strong black tea."], ["temperature", 95], ["brew_time", 5], ["created_at", "2024-09-28 11:03:38.581030"], ["updated_at", "2024-09-28 11:03:38.581030"]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mCustomer Exists? (2.6ms)[0m  [1m[34mSELECT 1 AS one FROM "customers" WHERE "customers"."email" = $1 LIMIT $2[0m  [["email", "john.doe@example.com"], ["LIMIT", 1]]
+  [1m[36mCustomer Create (0.6ms)[0m  [1m[32mINSERT INTO "customers" ("first_name", "last_name", "email", "address", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["first_name", "John"], ["last_name", "Doe"], ["email", "john.doe@example.com"], ["address", "123 Tea Street, Flavor Town"], ["created_at", "2024-09-28 11:03:38.601049"], ["updated_at", "2024-09-28 11:03:38.601049"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSubscription Create (2.8ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Monthly Green Tea Subscription"], ["price", "15.0"], ["status", 0], ["frequency", "monthly"], ["customer_id", 1], ["tea_id", 1], ["created_at", "2024-09-28 11:03:38.618030"], ["updated_at", "2024-09-28 11:03:38.618030"]]
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mSubscription Create (0.9ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Weekly Black Tea Subscription"], ["price", "7.5"], ["status", 1], ["frequency", "weekly"], ["customer_id", 1], ["tea_id", 2], ["created_at", "2024-09-28 11:03:38.622255"], ["updated_at", "2024-09-28 11:03:38.622255"]]
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+Started POST "/api/v1/customers/1/subscriptions" for ::1 at 2024-09-28 05:07:06 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::SubscriptionsController#create as */*
+  Parameters: {"tea_id"=>1, "subscription"=>{"title"=>"Biweekly Green Tea Subscription", "price"=>20.0, "frequency"=>"biweekly"}, "customer_id"=>"1"}
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mTea Load (0.3ms)[0m  [1m[34mSELECT "teas".* FROM "teas" WHERE "teas"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:6:in `create'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:14:in `create'
+  [1m[36mSubscription Create (1.3ms)[0m  [1m[32mINSERT INTO "subscriptions" ("title", "price", "status", "frequency", "customer_id", "tea_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["title", "Biweekly Green Tea Subscription"], ["price", "20.0"], ["status", 0], ["frequency", "biweekly"], ["customer_id", 1], ["tea_id", 1], ["created_at", "2024-09-28 11:07:06.890551"], ["updated_at", "2024-09-28 11:07:06.890551"]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:14:in `create'
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:14:in `create'
+Completed 201 Created in 66ms (Views: 0.2ms | ActiveRecord: 21.0ms | Allocations: 34946)
+
+
+Started GET "/api/v1/customers/1/subscriptions" for ::1 at 2024-09-28 05:08:00 -0600
+Processing by Api::V1::SubscriptionsController#index as */*
+  Parameters: {"customer_id"=>"1"}
+  [1m[36mCustomer Load (0.5ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mSubscription Load (1.6ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1[0m  [["customer_id", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:24:in `index'
+Completed 200 OK in 24ms (Views: 4.8ms | ActiveRecord: 2.1ms | Allocations: 1681)
+
+
+Started PATCH "/api/v1/customers/1/subscriptions/1" for ::1 at 2024-09-28 05:08:59 -0600
+Processing by Api::V1::SubscriptionsController#update as */*
+  Parameters: {"customer_id"=>"1", "id"=>"1"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mSubscription Load (0.4ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1 AND "subscriptions"."id" = $2 LIMIT $3[0m  [["customer_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:48:in `set_subscription'
+Completed 400 Bad Request in 3ms (ActiveRecord: 0.8ms | Allocations: 1396)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: subscription):
+  
+app/controllers/api/v1/subscriptions_controller.rb:54:in `subscription_params'
+app/controllers/api/v1/subscriptions_controller.rb:29:in `update'
+Started PATCH "/api/v1/customers/1/subscriptions/1" for ::1 at 2024-09-28 05:36:22 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Api::V1::SubscriptionsController#update as */*
+  Parameters: {"subscription"=>{"status"=>"cancelled"}, "customer_id"=>"1", "id"=>"1"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mSubscription Load (0.5ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1 AND "subscriptions"."id" = $2 LIMIT $3[0m  [["customer_id", 1], ["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:48:in `set_subscription'
+  [1m[36mTRANSACTION (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:29:in `update'
+  [1m[36mSubscription Update (1.2ms)[0m  [1m[33mUPDATE "subscriptions" SET "status" = $1, "updated_at" = $2 WHERE "subscriptions"."id" = $3[0m  [["status", 1], ["updated_at", "2024-09-28 11:36:22.321561"], ["id", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:29:in `update'
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:29:in `update'
+Completed 200 OK in 55ms (Views: 0.2ms | ActiveRecord: 27.0ms | Allocations: 25919)
+
+
+Started GET "/api/v1/customers/1/subscriptions" for ::1 at 2024-09-28 05:37:20 -0600
+Processing by Api::V1::SubscriptionsController#index as */*
+  Parameters: {"tea_id"=>999, "subscription"=>{"title"=>"Monthly Mystery Tea Subscription", "price"=>10.0, "frequency"=>"monthly"}, "customer_id"=>"1"}
+  [1m[36mCustomer Load (3.0ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mSubscription Load (0.6ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1[0m  [["customer_id", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:24:in `index'
+Completed 200 OK in 28ms (Views: 6.7ms | ActiveRecord: 3.6ms | Allocations: 1677)
+
+
+Started POST "/api/v1/customers/1/subscriptions" for ::1 at 2024-09-28 05:37:43 -0600
+Processing by Api::V1::SubscriptionsController#create as */*
+  Parameters: {"tea_id"=>999, "subscription"=>{"title"=>"Monthly Mystery Tea Subscription", "price"=>10.0, "frequency"=>"monthly"}, "customer_id"=>"1"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mTea Load (0.4ms)[0m  [1m[34mSELECT "teas".* FROM "teas" WHERE "teas"."id" = $1 LIMIT $2[0m  [["id", 999], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:6:in `create'
+Completed 404 Not Found in 34ms (Views: 0.1ms | ActiveRecord: 13.1ms | Allocations: 3954)
+
+
+Started GET "/api/v1/customers/1/subscriptions/1" for ::1 at 2024-09-28 05:38:29 -0600
+  
+ActionController::RoutingError (No route matches [GET] "/api/v1/customers/1/subscriptions/1"):
+  
+Started GET "/api/v1/customers/1/subscriptions" for ::1 at 2024-09-28 05:39:01 -0600
+Processing by Api::V1::SubscriptionsController#index as */*
+  Parameters: {"customer_id"=>"1"}
+  [1m[36mCustomer Load (0.4ms)[0m  [1m[34mSELECT "customers".* FROM "customers" WHERE "customers"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:42:in `set_customer'
+  [1m[36mSubscription Load (0.2ms)[0m  [1m[34mSELECT "subscriptions".* FROM "subscriptions" WHERE "subscriptions"."customer_id" = $1[0m  [["customer_id", 1]]
+  ↳ app/controllers/api/v1/subscriptions_controller.rb:24:in `index'
+Completed 200 OK in 16ms (Views: 1.4ms | ActiveRecord: 0.6ms | Allocations: 1399)
+
+
