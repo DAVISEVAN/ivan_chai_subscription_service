@@ -45,6 +45,7 @@ This endpoint creates a new tea subscription for a specific customer.
 - `tea_id` (body): The ID of the tea being subscribed to.
 
 ### **Request Body Example** (JSON):
+```
 {
   "tea_id": 1,
   "subscription": {
@@ -86,7 +87,7 @@ Error Responses:
 {
   "errors": ["Title can't be blank", "Price can't be blank"]
 }
-
+```
 ## 2. Get All Subscriptions
 
 ### **Endpoint**: 
@@ -96,8 +97,10 @@ GET /customers/:customer_id/subscriptions
 This endpoint retrieves all subscriptions (both active and cancelled) for a specific customer.
 
 ### **Request Parameters**:
-- `customer_id` (path): The ID of the customer.
-
+- `customer_id` (path): The ID of the customer
+  
+```
+Response Example (200 OK):
 {
   "data": [
     {
@@ -141,7 +144,7 @@ Error Responses:
 {
   "error": "Customer not found"
 }
-
+```
 ----
 ## 3. Get a Specific Subscription
 
@@ -154,7 +157,7 @@ This endpoint retrieves a specific subscription by ID for a customer.
 ### **Request Parameters**:
 - `customer_id` (path): The ID of the customer.
 - `id` (path): The ID of the subscription.
-
+```
 Response Example (200 OK):
 {
   "data": {
@@ -180,7 +183,7 @@ Error Responses:
 {
   "error": "Subscription not found"
 }
-
+```
 ## 4. Update a Subscription (Cancel)
 
 ### **Endpoint**: 
@@ -194,6 +197,7 @@ This endpoint updates a subscription’s status. For example, it can be used to 
 - `id` (path): The ID of the subscription.
 
 Request Body Example (JSON):
+```
 {
   "subscription": {
     "status": "cancelled"
@@ -228,7 +232,7 @@ Error Responses:
 {
   "errors": ["'invalid_status' is not a valid status"]
 }
-
+```
 ## 5. Delete a Subscription
 
 ### **Endpoint**: 
@@ -240,7 +244,7 @@ This endpoint cancels (deletes) a subscription for a customer.
 ### **Request Parameters**:
 - `customer_id` (path): The ID of the customer.
 - `id` (path): The ID of the subscription.
-
+```
 Response Example (200 OK):
 {
   "message": "Subscription deleted successfully"
@@ -250,7 +254,7 @@ Error Responses:
 {
   "error": "Subscription not found"
 }
-
+```
 ---
 General Notes
 
@@ -271,7 +275,7 @@ The Tea Subscription Service API uses a relational database with three primary t
 ### **Customers**
 
 The `customers` table stores information about the users who subscribe to tea services.
-
+```
 | Column Name   | Data Type | Description                   |
 | ------------- | --------- | ----------------------------- |
 | id            | bigint    | Primary key, auto-generated   |
@@ -281,13 +285,13 @@ The `customers` table stores information about the users who subscribe to tea se
 | address       | string    | Postal address                |
 | created_at    | datetime  | Timestamp when created        |
 | updated_at    | datetime  | Timestamp when updated        |
-
+```
 - **Index**: There is a unique index on `email` to ensure each customer has a unique email address.
 
 ### **Teas**
 
 The `teas` table stores information about the different types of teas that customers can subscribe to.
-
+```
 | Column Name   | Data Type | Description                      |
 | ------------- | --------- | -------------------------------- |
 | id            | bigint    | Primary key, auto-generated      |
@@ -297,11 +301,11 @@ The `teas` table stores information about the different types of teas that custo
 | brew_time     | integer   | Brewing time in minutes          |
 | created_at    | datetime  | Timestamp when created           |
 | updated_at    | datetime  | Timestamp when updated           |
-
+```
 ### **Subscriptions**
 
 The `subscriptions` table stores information about customers' tea subscriptions.
-
+```
 | Column Name   | Data Type   | Description                                        |
 | ------------- | ----------- | -------------------------------------------------- |
 | id            | bigint      | Primary key, auto-generated                        |
@@ -313,7 +317,7 @@ The `subscriptions` table stores information about customers' tea subscriptions.
 | tea_id        | bigint      | Foreign key, references the `teas` table           |
 | created_at    | datetime    | Timestamp when created                             |
 | updated_at    | datetime    | Timestamp when updated                             |
-
+```
 - **Foreign Keys**: `customer_id` references the `customers` table, and `tea_id` references the `teas` table.
 - **Indexes**: There are indexes on `customer_id` and `tea_id` to optimize lookup.
 
