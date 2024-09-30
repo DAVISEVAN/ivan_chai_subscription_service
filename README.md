@@ -256,6 +256,7 @@ Error Responses:
 }
 ```
 ---
+```
 General Notes
 
 Response Format: All responses use JSON
@@ -267,7 +268,7 @@ Status Codes:
 404 Not Found for missing resources.
 422 Unprocessable Entity for validation errors.
 ---
-
+```
 ## Database Schema
 
 The Tea Subscription Service API uses a relational database with three primary tables: `customers`, `teas`, and `subscriptions`. Below is the schema definition and a brief explanation of each table and its relationships.
