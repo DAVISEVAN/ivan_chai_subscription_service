@@ -45,7 +45,6 @@ This endpoint creates a new tea subscription for a specific customer.
 - `tea_id` (body): The ID of the tea being subscribed to.
 
 ### **Request Body Example** (JSON):
-```json
 {
   "tea_id": 1,
   "subscription": {
@@ -273,8 +272,8 @@ The Tea Subscription Service API uses a relational database with three primary t
 
 The `customers` table stores information about the users who subscribe to tea services.
 
-| Column Name   | Data Type | Description                  |
-| ------------- | --------- | ---------------------------- |
+| Column Name   | Data Type | Description                   |
+| ------------- | --------- | ----------------------------- |
 | id            | bigint    | Primary key, auto-generated   |
 | first_name    | string    | First name of the customer    |
 | last_name     | string    | Last name of the customer     |
@@ -291,7 +290,7 @@ The `teas` table stores information about the different types of teas that custo
 
 | Column Name   | Data Type | Description                      |
 | ------------- | --------- | -------------------------------- |
-| id            | bigint    | Primary key, auto-generated       |
+| id            | bigint    | Primary key, auto-generated      |
 | title         | string    | Name of the tea                  |
 | description   | text      | Description of the tea           |
 | temperature   | integer   | Optimal brewing temperature (°C) |
