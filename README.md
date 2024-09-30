@@ -267,7 +267,7 @@ Status Codes:
 200 OK for successful updates or fetches.
 404 Not Found for missing resources.
 422 Unprocessable Entity for validation errors.
----
+
 ```
 ## Database Schema
 
@@ -276,7 +276,7 @@ The Tea Subscription Service API uses a relational database with three primary t
 ### **Customers**
 
 The `customers` table stores information about the users who subscribe to tea services.
-```
+```sql
 | Column Name   | Data Type | Description                   |
 | ------------- | --------- | ----------------------------- |
 | id            | bigint    | Primary key, auto-generated   |
