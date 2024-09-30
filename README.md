@@ -263,3 +263,66 @@ Status Codes:
 200 OK for successful updates or fetches.
 404 Not Found for missing resources.
 422 Unprocessable Entity for validation errors.
+---
+
+## Database Schema
+
+The Tea Subscription Service API uses a relational database with three primary tables: `customers`, `teas`, and `subscriptions`. Below is the schema definition and a brief explanation of each table and its relationships.
+
+### **Customers**
+
+The `customers` table stores information about the users who subscribe to tea services.
+
+| Column Name   | Data Type | Description                  |
+| ------------- | --------- | ---------------------------- |
+| id            | bigint    | Primary key, auto-generated   |
+| first_name    | string    | First name of the customer    |
+| last_name     | string    | Last name of the customer     |
+| email         | string    | Unique email address          |
+| address       | string    | Postal address                |
+| created_at    | datetime  | Timestamp when created        |
+| updated_at    | datetime  | Timestamp when updated        |
+
+- **Index**: There is a unique index on `email` to ensure each customer has a unique email address.
+
+### **Teas**
+
+The `teas` table stores information about the different types of teas that customers can subscribe to.
+
+| Column Name   | Data Type | Description                      |
+| ------------- | --------- | -------------------------------- |
+| id            | bigint    | Primary key, auto-generated       |
+| title         | string    | Name of the tea                  |
+| description   | text      | Description of the tea           |
+| temperature   | integer   | Optimal brewing temperature (°C) |
+| brew_time     | integer   | Brewing time in minutes          |
+| created_at    | datetime  | Timestamp when created           |
+| updated_at    | datetime  | Timestamp when updated           |
+
+### **Subscriptions**
+
+The `subscriptions` table stores information about customers' tea subscriptions.
+
+| Column Name   | Data Type   | Description                                        |
+| ------------- | ----------- | -------------------------------------------------- |
+| id            | bigint      | Primary key, auto-generated                        |
+| title         | string      | Title of the subscription                          |
+| price         | decimal     | Price of the subscription                          |
+| status        | integer     | Status of the subscription (`active`, `cancelled`) |
+| frequency     | string      | Subscription frequency (`weekly`, `monthly`, etc.) |
+| customer_id   | bigint      | Foreign key, references the `customers` table      |
+| tea_id        | bigint      | Foreign key, references the `teas` table           |
+| created_at    | datetime    | Timestamp when created                             |
+| updated_at    | datetime    | Timestamp when updated                             |
+
+- **Foreign Keys**: `customer_id` references the `customers` table, and `tea_id` references the `teas` table.
+- **Indexes**: There are indexes on `customer_id` and `tea_id` to optimize lookup.
+
+- Customers have many Subscriptions: Each customer can have multiple subscriptions.
+
+- Subscriptions belong to Customers: Each subscription is linked to a customer.
+
+- Teas have many Subscriptions: A single tea can be associated with multiple subscriptions.
+
+- Subscriptions belong to Teas: Each subscription is linked to a specific tea.
+---
