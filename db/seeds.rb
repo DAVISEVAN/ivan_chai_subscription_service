@@ -1,41 +1,17 @@
-# Creating some sample Teas
-tea1 = Tea.create!(
-  title: 'Green Tea',
-  description: 'A refreshing and healthy green tea.',
-  temperature: 80,
-  brew_time: 3
-)
+# Clear existing data
+Customer.destroy_all
+Tea.destroy_all
+Subscription.destroy_all
 
-tea2 = Tea.create!(
-  title: 'Black Tea',
-  description: 'A bold and strong black tea.',
-  temperature: 95,
-  brew_time: 5
-)
+# Create customers
+customer1 = Customer.create!(first_name: 'John', last_name: 'Doe', email: 'john@example.com', address: '123 Tea St.')
+customer2 = Customer.create!(first_name: 'Jane', last_name: 'Smith', email: 'jane@example.com', address: '456 Coffee Rd.')
 
-# Creating a sample Customer
-customer = Customer.create!(
-  first_name: 'John',
-  last_name: 'Doe',
-  email: 'john.doe@example.com',
-  address: '123 Tea Street, Flavor Town'
-)
+# Create teas
+tea1 = Tea.create!(title: 'Green Tea', description: 'A refreshing and healthy green tea.', temperature: 80, brew_time: 3)
+tea2 = Tea.create!(title: 'Black Tea', description: 'A strong and bold black tea.', temperature: 95, brew_time: 4)
+tea3 = Tea.create!(title: 'Oolong Tea', description: 'A fragrant and fruity oolong tea.', temperature: 85, brew_time: 5)
 
-# Creating sample Subscriptions
-Subscription.create!(
-  title: 'Monthly Green Tea Subscription',
-  price: 15.0,
-  status: 'active',
-  frequency: 'monthly',
-  customer: customer,
-  tea: tea1
-)
-
-Subscription.create!(
-  title: 'Weekly Black Tea Subscription',
-  price: 7.5,
-  status: 'cancelled',
-  frequency: 'weekly',
-  customer: customer,
-  tea: tea2
-)
+# Create subscriptions (active and cancelled)
+Subscription.create!(title: 'Monthly Green Tea Subscription', price: 15.0, frequency: 'monthly', status: 'active', customer: customer1, tea: tea1)
+Subscription.create!(title: 'Weekly Black Tea Subscription', price: 10.0, frequency: 'weekly', status: 'cancelled', customer: customer1, tea: tea2)

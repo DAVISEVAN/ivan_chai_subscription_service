@@ -49,8 +49,7 @@ RSpec.describe 'Subscriptions API', type: :request do
         get "/api/v1/customers/#{customer.id}/subscriptions/#{subscription.id}"
         expect(response).to have_http_status(:ok)
 
-        subscription_data = JSON.parse(response.body)
-        expect(subscription_data['id']).to eq(subscription.id)
+        subscription_data = JSON.parse(response.body)['data']['attributes']
         expect(subscription_data['title']).to eq(subscription.title)
         expect(subscription_data['price'].to_f).to eq(subscription.price)
         expect(subscription_data['status']).to eq(subscription.status)
@@ -62,8 +61,8 @@ RSpec.describe 'Subscriptions API', type: :request do
         get "/api/v1/customers/#{customer.id}/subscriptions/9999"
         expect(response).to have_http_status(:not_found)
 
-        error_message = JSON.parse(response.body)
-        expect(error_message['error']).to eq('Subscription not found')
+        error_message = JSON.parse(response.body)['error']
+        expect(error_message).to eq('Subscription not found')
       end
     end
   end
@@ -73,7 +72,11 @@ RSpec.describe 'Subscriptions API', type: :request do
       it 'creates a new subscription' do
         post "/api/v1/customers/#{customer.id}/subscriptions", params: { tea_id: tea.id, subscription: { title: 'Monthly Tea', price: 10.0, frequency: 'monthly' } }
         expect(response).to have_http_status(:created)
-        expect(JSON.parse(response.body)['message']).to eq('Subscription created successfully')
+
+        subscription_data = JSON.parse(response.body)['data']['attributes']
+        expect(subscription_data['title']).to eq('Monthly Tea')
+        expect(subscription_data['price']).to eq(10.0)
+        expect(subscription_data['frequency']).to eq('monthly')
       end
     end
 
@@ -107,7 +110,7 @@ RSpec.describe 'Subscriptions API', type: :request do
       it 'returns all subscriptions for the customer' do
         get "/api/v1/customers/#{customer.id}/subscriptions"
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body).size).to eq(1)
+        expect(JSON.parse(response.body)['data'].size).to eq(1)
       end
     end
 
@@ -125,7 +128,9 @@ RSpec.describe 'Subscriptions API', type: :request do
       it 'updates the subscription status to cancelled' do
         patch "/api/v1/customers/#{customer.id}/subscriptions/#{subscription.id}", params: { subscription: { status: 'cancelled' } }
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body)['message']).to eq('Subscription cancelled successfully')
+
+        subscription_data = JSON.parse(response.body)['data']['attributes']
+        expect(subscription_data['status']).to eq('cancelled')
         expect(subscription.reload.status).to eq('cancelled')
       end
     end

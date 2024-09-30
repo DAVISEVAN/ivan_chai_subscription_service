@@ -4,64 +4,53 @@ class Api::V1::SubscriptionsController < ApplicationController
 
   def create
     tea = Tea.find_by(id: params[:tea_id])
-    if tea.nil?
-      render json: { error: 'Tea not found' }, status: :not_found
-      return
-    end
+    return render json: { error: 'Tea not found' }, status: :not_found unless tea
 
-    subscription = @customer.subscriptions.new(subscription_params.merge(tea: tea))
-
-    if subscription.save
-      render json: { message: 'Subscription created successfully', subscription: subscription }, status: :created
+    subscription_service = SubscriptionService.new(@customer, tea, subscription_params)
+    if subscription_service.create
+      render json: SubscriptionSerializer.new(subscription_service.subscription, include: [:tea]).serializable_hash.to_json, status: :created
     else
-      render json: { errors: subscription.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: subscription_service.errors }, status: :unprocessable_entity
     end
   end
 
   def show
-    subscription = @customer.subscriptions.find(params[:id])
-    render json: subscription
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Subscription not found' }, status: :not_found
+    render json: SubscriptionSerializer.new(@subscription, include: [:tea]).serializable_hash.to_json
   end
 
   def index
     subscriptions = @customer.subscriptions
-    render json: subscriptions
+    render json: SubscriptionSerializer.new(subscriptions, include: [:tea]).serializable_hash.to_json
   end
 
   def update
-    begin
-      if @subscription.update(subscription_params)
-        render json: { message: 'Subscription cancelled successfully' }, status: :ok
-      else
-        render json: { errors: @subscription.errors.full_messages }, status: :unprocessable_entity
-      end
-    rescue ArgumentError => e
-      render json: { errors: [e.message] }, status: :unprocessable_entity
+    subscription_service = SubscriptionService.new(@customer, @subscription)
+    if subscription_service.update(subscription_params)
+      render json: SubscriptionSerializer.new(@subscription, include: [:tea]).serializable_hash.to_json, status: :ok
+    else
+      render json: { errors: subscription_service.errors }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    if @subscription.destroy
+    subscription_service = SubscriptionService.new(@customer, @subscription)
+    if subscription_service.destroy
       render json: { message: 'Subscription deleted successfully' }, status: :ok
     else
-      render json: { errors: @subscription.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: subscription_service.errors }, status: :unprocessable_entity
     end
   end
 
   private
 
   def set_customer
-    @customer = Customer.find(params[:customer_id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Customer not found' }, status: :not_found
+    @customer = Customer.find_by(id: params[:customer_id])
+    render json: { error: 'Customer not found' }, status: :not_found unless @customer
   end
 
   def set_subscription
-    @subscription = @customer.subscriptions.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Subscription not found' }, status: :not_found
+    @subscription = @customer.subscriptions.find_by(id: params[:id])
+    render json: { error: 'Subscription not found' }, status: :not_found unless @subscription
   end
 
   def subscription_params
